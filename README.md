@@ -2,6 +2,10 @@
 
 [日文打字学习web版](https://sakuralggm.github.io/JType/)
 
+## 部署命令
+
+`cnpm run deploy -- --mode=production`
+
 ## 特性 - feature
 
 - 每次随机生成用于练习的字符列表
