@@ -4,8 +4,7 @@ const path = require('path')
 module.exports = ({ file }) => {
   // 判断条件 请自行调整 我使用的是 mand-mobile ui 没有对vant引入进行测试
   //link https://github.com/youzan/vant/issues/1181
-  const dirname = file.dirname.split(path.sep).join('/')
-
+  const dirname = file && file.dirname ? file.dirname.split(path.sep).join('/') : '';
   return {
     plugins: {
       autoprefixer: {},

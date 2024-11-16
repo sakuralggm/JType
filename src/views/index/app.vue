@@ -31,49 +31,93 @@
           </div>
         </div>
       </div>
+      <!-- 练习字符展示区开始 -->
       <div class="jp-type--show">
-        <span class="jp-type--show-text" v-for="(item,index) in list"
-              :key="index">{{ item.mainJP }}</span>
+        <span class="jp-type--show-text" v-for="(item, index) in list" :key="index">{{ item.mainJP }}</span>
       </div>
+      <!-- 练习字符展示区结束 -->
+      <!-- 输入区开始 -->
       <div class="jp-type--show mpm-mt12 ">
-        <span class="jp-type--show-text jp-type--input-text" v-for="(item,index) in inputList" :key="index" :class="{
+        <span class="jp-type--show-text jp-type--input-text" v-for="(item, index) in inputList" :key="index" :class="{
           wrong: item !== list[index].mainJP,
           fix: list[index].isWrong && item === list[index].mainJP
-        }">{{ item }}</span><input ref="input" class="jp-type--input"
-                                   :class="{'wrong':currentWrong}"
-                                   v-model.trim="input"
-                                   :maxlength="isFinished ? 0 : 10"
-                                   @input="onCheck"
-                                   @keydown.delete="onDelete"
-                                   @keydown.enter="onFinish"
-                                   @keyup="onInsert"
-      >
+        }">{{ item }}</span><input ref="input" class="jp-type--input" :class="{ 'wrong': currentWrong }"
+          v-model.trim="input" :maxlength="isFinished ? 0 : 10" @input="onCheck" @keydown.delete="onDelete"
+          @keydown.enter="onFinish" @keyup="onInsert">
       </div>
+      <!-- 输入区结束 -->
+      <!-- 控制按钮区开始 -->
       <div class="mpm-relative">
         <div class="jp-type--reset" @click="change()">重新练习</div>
         <div class="jp-type--reset-notice" v-if="isFinished">本次练习已完成</div>
       </div>
+      <!-- 控制按钮区结束 -->
     </div>
+
+    <!-- 课程章节 -->
     <div class="jp-type--lesson">
       <div class="jp-type--lesson-head">课程章节</div>
-      <div class="jp-type--lesson-head">五十音<br/>平假名</div>
+      <div class="jp-type--lesson-head">五十音<br />平假名</div>
       <div class="jp-type--lesson-head">清音</div>
       <div class="jp-type--lesson-list">
-        <div class="jp-type--lesson-section" v-for="(item,key,index) in PINGJIA_LETTERS_MAP" :key="key+item[0].mainJP"
-             :class="{'active':currentLabel.indexOf(key) !== -1}"
-             @click="change(key)">{{ item[0].mainJP }}行
+        <div class="jp-type--lesson-section" v-for="(item, key, index) in PINGJIA_LETTERS_MAP"
+          :key="key + item[0].mainJP" :class="{ 'active': currentLabel.indexOf(key) !== -1 }" @click="change(key)">{{
+            item[0].mainJP }}行
         </div>
       </div>
-      <div class="jp-type--lesson-head">五十音<br/>片假名</div>
+      <div class="jp-type--lesson-head">五十音<br />片假名</div>
       <div class="jp-type--lesson-head">清音</div>
       <div class="jp-type--lesson-list">
-        <div class="jp-type--lesson-section" v-for="(item,key,index) in PIANJIA_LETTERS_MAP" :key="key+item[0].mainJP"
-             :class="{'active':currentLabel.indexOf(key) !== -1}"
-             @click="change(key)">{{ item[0].mainJP }}行
+        <div class="jp-type--lesson-section" v-for="(item, key, index) in PIANJIA_LETTERS_MAP"
+          :key="key + item[0].mainJP" :class="{ 'active': currentLabel.indexOf(key) !== -1 }" @click="change(key)">{{
+            item[0].mainJP }}行
         </div>
       </div>
-
     </div>
+    <!-- 浊音 -->
+    <div class="jp-type--lesson-left">
+      <div class="jp-type--lesson-head-left">课程章节</div>
+      <div class="jp-type--lesson-head-left">五十音<br />平假名</div>
+      <div class="jp-type--lesson-head-left">浊音</div>
+      <div class="jp-type--lesson-list">
+        <div class="jp-type--lesson-section-left" v-for="(item, key, index) in PINGJIA_LETTERS_ZHUO"
+          :key="key + item[0].mainJP" :class="{ 'active': currentLabel.indexOf(key) !== -1 }" @click="change(key)">{{
+            item[0].mainJP }}行
+        </div>
+      </div>
+      <div class="jp-type--lesson-head-left">五十音<br />片假名</div>
+      <div class="jp-type--lesson-head-left">浊音</div>
+      <div class="jp-type--lesson-list">
+        <div class="jp-type--lesson-section-left" v-for="(item, key, index) in PIANJIA_LETTERS_ZHUO"
+          :key="key + item[0].mainJP" :class="{ 'active': currentLabel.indexOf(key) !== -1 }" @click="change(key)">{{
+            item[0].mainJP }}行
+        </div>
+      </div>
+    </div>
+    <!-- 浊音结束 -->
+
+    <!-- 拗音开始 -->
+    <!-- <div class="jp-type--lesson-ao">
+      <div class="jp-type--lesson-head">课程章节</div>
+      <div class="jp-type--lesson-head">五十音<br />平假名</div>
+      <div class="jp-type--lesson-head">拗音</div>
+      <div class="jp-type--lesson-list">
+        <div class="jp-type--lesson-section" v-for="(item, key, index) in PINGJIA_LETTERS_AO"
+          :key="key + item[0].mainJP" :class="{ 'active': currentLabel.indexOf(key) !== -1 }" @click="change(key)">{{
+            item[0].mainJP }}行
+        </div>
+      </div>
+      <div class="jp-type--lesson-head">五十音<br />片假名</div>
+      <div class="jp-type--lesson-head">拗音</div>
+      <div class="jp-type--lesson-list">
+        <div class="jp-type--lesson-section" v-for="(item, key, index) in PIANJIA_LETTERS_AO"
+          :key="key + item[0].mainJP" :class="{ 'active': currentLabel.indexOf(key) !== -1 }" @click="change(key)">{{
+            item[0].mainJP }}行
+        </div>
+      </div>
+    </div> -->
+    <!-- 拗音结束 -->
+
     <div class="jp-type--edition-info">
       <div>v{{ process.BUILD.APP_VERSION }}</div>
       <div>{{ process.BUILD.BUILD_DATE }}</div>
@@ -85,12 +129,22 @@
 import chance from 'chance'
 import PINGJIA_LETTERS_MAP from '../data/pingjia-letters'
 import PIANJIA_LETTERS_MAP from '../data/pianjia-letters'
+// 引入../data下的pingjia-letters-zhuoyin.js和pianjia-letters-zhuoyin.js文件，用于浊音的练习
+import PINGJIA_LETTERS_ZHUO from '../data/pingjia-letters-zhuoyin'
+import PIANJIA_LETTERS_ZHUO from '../data/pianjia-letters-zhuoyin'
+// 引入..data下的pingjia-letters-ao.js和pianjia-letters-ao.js文件，用于拗音的练习
+import PINGJIA_LETTERS_AO from '../data/pingjia-letters-ao'
+import PIANJIA_LETTERS_AO from '../data/pianjia-letters-ao'
 
 export default {
   data() {
     const LETTERS_MAP = {
       ...PINGJIA_LETTERS_MAP,
       ...PIANJIA_LETTERS_MAP,
+      ...PINGJIA_LETTERS_ZHUO,
+      ...PIANJIA_LETTERS_ZHUO,
+      ...PINGJIA_LETTERS_AO,
+      ...PIANJIA_LETTERS_AO,
     }
 
     return {
@@ -108,6 +162,10 @@ export default {
       }, {}),
       PINGJIA_LETTERS_MAP,
       PIANJIA_LETTERS_MAP,
+      PINGJIA_LETTERS_ZHUO,
+      PIANJIA_LETTERS_ZHUO,
+      PINGJIA_LETTERS_AO,
+      PIANJIA_LETTERS_AO,
       list: [],
       inputList: [],
       input: '', // 已输入值
@@ -191,10 +249,10 @@ export default {
 
       for (let i = 0; i < this.sliceLength; i++) {
         const chance = new Chance()
-        const index = chance.integer({min: 0, max: LETTER_LIST.length - 1})
+        const index = chance.integer({ min: 0, max: LETTER_LIST.length - 1 })
 
         // 深拷贝该对象
-        list.push({...LETTER_LIST[index]})
+        list.push({ ...LETTER_LIST[index] })
       }
 
       this.list = list
@@ -304,7 +362,8 @@ export default {
   margin-bottom: 90PX;
 }
 
-.jp-type--preview, .jp-type--preview-other {
+.jp-type--preview,
+.jp-type--preview-other {
   position: relative;
   width: 100%;
   height: 150PX;
@@ -332,7 +391,8 @@ export default {
   }
 }
 
-.jp-type--preview-text, .jp-type--preview-text-other {
+.jp-type--preview-text,
+.jp-type--preview-text-other {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -438,6 +498,7 @@ export default {
   line-height: 1.3;
 }
 
+
 .jp-type--lesson-head {
   padding: 4PX 14PX 4PX 4PX;
   background-color: #504d51;
@@ -460,6 +521,59 @@ export default {
     background-color: #6e6c7a;
   }
 }
+
+// 浊音的样式
+.jp-type--lesson-left {
+  position: fixed;
+  left: -12PX;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 12PX;
+  line-height: 1.3;
+}
+
+
+.jp-type--lesson-head-left {
+  padding: 4PX 4PX 4PX 14PX;
+  background-color: #504d51;
+}
+
+
+.jp-type--lesson-section-left {
+  padding: 4PX 4PX 4PX 14PX;
+  transition: all 0.3s ease;
+  background-color: #3e3c3f;
+  cursor: pointer;
+
+  &.active {
+    background-color: #6e6c7a;
+    transform: translateX(6PX) scale(1.1);
+    box-shadow: -2PX 2PX 2PX rgba(0, 0, 0, 0.1);
+  }
+
+  &:hover {
+    background-color: #6e6c7a;
+  }
+}
+
+// 浊音的样式结束
+
+
+// 拗音的样式开始
+.jp-type--lesson-ao {
+  position: fixed;
+  right: 70PX;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 12PX;
+  line-height: 1.3;
+}
+
+// 拗音的样式结束
+
+
 
 .jp-type--reset {
   background-color: #6e6c7a;

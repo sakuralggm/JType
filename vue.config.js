@@ -74,12 +74,16 @@ module.exports = {
         }),
     },
     host: '0.0.0.0',
-    disableHostCheck: true,
-    noInfo: true,
+    // disableHostCheck: true,
+    allowedHosts: 'all',
+    // noInfo: true,
+    client: {
+      logging: 'none',
+    },
     // 开启内网穿透 End
     compress: true,
-    open: true,
-    openPage: 'webpack-dev-server',
+    // open: true,
+    open: 'webpack-dev-server',
     port: SERVER_ENV_CONFIG.PORT || '8080',
     proxy:
       Object.entries(ENV_CONFIG.PROXY).length > 0
